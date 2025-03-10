@@ -1,0 +1,26 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Команда для сравнения конфигурационных файлов",
+  "main": "gendiff.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "gendiff": "./gendiff.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/user15213/frontend-project-46.git"
+  },
+  "author": "resomakar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/user15213/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/user15213/frontend-project-46#readme",
+  "dependencies": {
+    "commander": "^13.1.0"
+  }
+}
