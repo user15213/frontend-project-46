@@ -3,6 +3,7 @@
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
+import yaml from 'js-yaml';
 
 const program = new Command();
 
@@ -18,6 +19,79 @@ program
     'output format (stylish, plain, json)',
     'stylish'
   );
+
+program.action((filepath1, filepath2, options) => {
+  const readFile = (filePath) => {
+    try {
+      const absolutePath = path.resolve(filePath);
+      const extname = path.extname(absolutePath);
+      const fileContent = fs.readFileSync(absolutePath, 'utf-8');
+
+      if (extname === '.json') {
+        return JSON.parse(fileContent);
+      } else if (extname === '.yml' || extname === '.yaml') {
+        return yaml.load(fileContent);
+      } else {
+        throw new Error(`Unsupported file format: ${extname}`);
+      }
+    } catch (error) {
+      console.error(
+        `Error reading or parsing file: ${filePath}`,
+        error.message
+      );
+      process.exit(1);
+    }
+  };
+
+  const compareFiles = (file1, file2) => {
+    const diff = [];
+
+    for (const key in file1) {
+      if (
+        file1[key] !== file2[key] &&
+        file1[key] !== undefined &&
+        file2[key] !== undefined
+      ) {
+        diff.push(`- ${key}: ${file1[key]}`);
+        diff.push(`+ ${key}: ${file2[key]}`);
+      }
+    }
+
+    for (const key in file2) {
+      if (!(key in file1) && file2[key] !== undefined) {
+        diff.push(`+ ${key}: ${file2[key]}`);
+      }
+    }
+
+    for (const key in file1) {
+      if (!(key in file2) && file1[key] !== undefined) {
+        diff.push(`- ${key}: ${file1[key]}`);
+      }
+    }
+
+    return diff;
+  };
+
+  const displayDiff = (diff, format) => {
+    if (format === 'stylish') {
+      return diff.join('\n');
+    } else if (format === 'json') {
+      return JSON.stringify(diff, null, 2);
+    } else if (format === 'plain') {
+      return diff.join(' ');
+    } else {
+      return 'Unknown format';
+    }
+  };
+
+  const file1 = readFile(filepath1);
+  const file2 = readFile(filepath2);
+
+  const diff = compareFiles(file1, file2);
+  const output = displayDiff(diff, options.format);
+
+  console.log(output);
+});
 
 program.on('--help', () => {
   console.log();
@@ -39,45 +113,3 @@ program.configureHelp({
 });
 
 program.parse(process.argv);
-
-const options = program.opts();
-const [filepath1, filepath2] = program.args;
-
-const readFile = (filePath) => {
-  const absolutePath = path.resolve(filePath);
-  const fileContent = fs.readFileSync(absolutePath, 'utf-8');
-  return JSON.parse(fileContent);
-};
-
-const compareFiles = (file1, file2) => {
-  const diff = [];
-
-  for (const key in file1) {
-    if (file1[key] !== file2[key]) {
-      diff.push(`- ${key}: ${file1[key]}`);
-      diff.push(`+ ${key}: ${file2[key]}`);
-    }
-  }
-
-  return diff;
-};
-
-const displayDiff = (diff, format) => {
-  if (format === 'stylish') {
-    return diff.join('\n');
-  } else if (format === 'json') {
-    return JSON.stringify(diff, null, 2);
-  } else if (format === 'plain') {
-    return diff.join(' ');
-  } else {
-    return 'Unknown format';
-  }
-};
-
-const file1 = readFile(filepath1);
-const file2 = readFile(filepath2);
-
-const diff = compareFiles(file1, file2);
-const output = displayDiff(diff, options.format);
-
-console.log(output);
