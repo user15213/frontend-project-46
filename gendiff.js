@@ -19,7 +19,6 @@ program
     'stylish'
   );
 
-// Изменение стандартного текста справки
 program.on('--help', () => {
   console.log();
   console.log('  Usage: gendiff [options] <filepath1> <filepath2>');
@@ -33,11 +32,10 @@ program.on('--help', () => {
   console.log();
 });
 
-// Отключаем стандартную справку от commander.js
 program.configureHelp({
   sortOptions: true,
   showHelpAfterError: true,
-  formatHelp: () => '', // Переопределение формата вывода справки
+  formatHelp: () => '',
 });
 
 program.parse(process.argv);

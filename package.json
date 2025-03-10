@@ -6,6 +6,7 @@
   "main": "gendiff.js",
   "type": "module",
   "scripts": {
+    "start": "node gendiff.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
