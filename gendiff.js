@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import _ from 'lodash';
 
 const program = new Command();
 
@@ -44,37 +45,35 @@ program.action((filepath1, filepath2, options) => {
   };
 
   const compareFiles = (file1, file2) => {
+    const keys = _.union(Object.keys(file1), Object.keys(file2));
     const diff = [];
 
-    for (const key in file1) {
-      if (
-        file1[key] !== file2[key] &&
-        file1[key] !== undefined &&
-        file2[key] !== undefined
-      ) {
-        diff.push(`- ${key}: ${file1[key]}`);
-        diff.push(`+ ${key}: ${file2[key]}`);
-      }
-    }
+    keys.sort();
 
-    for (const key in file2) {
-      if (!(key in file1) && file2[key] !== undefined) {
-        diff.push(`+ ${key}: ${file2[key]}`);
-      }
-    }
+    keys.forEach((key) => {
+      const value1 = file1[key];
+      const value2 = file2[key];
 
-    for (const key in file1) {
-      if (!(key in file2) && file1[key] !== undefined) {
-        diff.push(`- ${key}: ${file1[key]}`);
+      if (value1 !== value2) {
+        if (value1 === undefined) {
+          diff.push(`+ ${key}: ${value2}`);
+        } else if (value2 === undefined) {
+          diff.push(`- ${key}: ${value1}`);
+        } else {
+          diff.push(`- ${key}: ${value1}`);
+          diff.push(`+ ${key}: ${value2}`);
+        }
+      } else {
+        diff.push(`  ${key}: ${value1}`);
       }
-    }
+    });
 
     return diff;
   };
 
   const displayDiff = (diff, format) => {
     if (format === 'stylish') {
-      return diff.join('\n');
+      return `{ \n${diff.join('\n')} \n}`;
     } else if (format === 'json') {
       return JSON.stringify(diff, null, 2);
     } else if (format === 'plain') {
