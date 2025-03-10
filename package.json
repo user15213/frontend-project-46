@@ -1,6 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
+  "private": true,
   "description": "Команда для сравнения конфигурационных файлов",
   "main": "gendiff.js",
   "type": "module",
