@@ -15,6 +15,15 @@ export default [
   },
   pluginJs.configs.recommended,
   {
+    files: ['**/__tests__/**/*.js', 'gendiff.js'],
+    rules: {
+      'no-console': 'off',
+      semi: ['error', 'always'],
+      quotes: ['error', 'single'],
+      indent: ['error', 2],
+    },
+  },
+  {
     files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'],
     rules: {
       'no-unused-vars': 'warn',

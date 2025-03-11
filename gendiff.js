@@ -6,6 +6,49 @@ import path from 'path';
 import yaml from 'js-yaml';
 import _ from 'lodash';
 
+// Экспортируем функцию diff в начало файла
+export function diff(file1, file2) {
+  const keys = _.union(Object.keys(file1), Object.keys(file2)); // Объединение ключей
+  const diff = [];
+
+  keys.sort(); // Сортировка ключей для корректного вывода
+
+  // Сравнение значений по ключам
+  keys.forEach((key) => {
+    const value1 = file1[key];
+    const value2 = file2[key];
+
+    if (value1 !== value2) {
+      if (value1 === undefined) {
+        diff.push(`+ ${key}: ${value2}`);
+      } else if (value2 === undefined) {
+        diff.push(`- ${key}: ${value1}`);
+      } else {
+        diff.push(`- ${key}: ${value1}`);
+        diff.push(`+ ${key}: ${value2}`);
+      }
+    } else {
+      diff.push(`  ${key}: ${value1}`);
+    }
+  });
+
+  return diff;
+}
+
+// Функция для отображения различий в различных форматах
+const displayDiff = (diff, format) => {
+  if (format === 'stylish') {
+    return `\n${diff.join('\n')} \n`;
+  } else if (format === 'json') {
+    return JSON.stringify(diff, null, 2);
+  } else if (format === 'plain') {
+    return diff.join(' ');
+  } else {
+    return 'Неизвестный формат';
+  }
+};
+
+// Основной код программы
 const program = new Command();
 
 program
@@ -45,50 +88,11 @@ program.action((filepath1, filepath2, options) => {
     }
   };
 
-  const compareFiles = (file1, file2) => {
-    const keys = _.union(Object.keys(file1), Object.keys(file2));
-    const diff = [];
-
-    keys.sort();
-
-    keys.forEach((key) => {
-      const value1 = file1[key];
-      const value2 = file2[key];
-
-      if (value1 !== value2) {
-        if (value1 === undefined) {
-          diff.push(`+ ${key}: ${value2}`);
-        } else if (value2 === undefined) {
-          diff.push(`- ${key}: ${value1}`);
-        } else {
-          diff.push(`- ${key}: ${value1}`);
-          diff.push(`+ ${key}: ${value2}`);
-        }
-      } else {
-        diff.push(`  ${key}: ${value1}`);
-      }
-    });
-
-    return diff;
-  };
-
-  const displayDiff = (diff, format) => {
-    if (format === 'stylish') {
-      return `\n${diff.join('\n')} \n`;
-    } else if (format === 'json') {
-      return JSON.stringify(diff, null, 2);
-    } else if (format === 'plain') {
-      return diff.join(' ');
-    } else {
-      return 'Неизвестный формат';
-    }
-  };
-
   const file1 = readFile(filepath1);
   const file2 = readFile(filepath2);
 
-  const diff = compareFiles(file1, file2);
-  const output = displayDiff(diff, options.format);
+  const diffResult = diff(file1, file2); // Используем функцию diff
+  const output = displayDiff(diffResult, options.format);
 
   console.log(output);
 });
