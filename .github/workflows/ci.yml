@@ -46,3 +46,17 @@ jobs:
 
       - name: Run tests with coverage
         run: npm run test:coverage
+
+  upload-coverage-report:
+    runs-on: ubuntu-latest
+    needs: coverage
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Upload coverage to CodeClimate
+        uses: codeclimate/test-reporter-action@v2
+        with:
+          coverage_command: 'npm run test:coverage'
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}

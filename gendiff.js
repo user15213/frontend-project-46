@@ -10,21 +10,22 @@ const program = new Command();
 
 program
   .version('1.0.0')
-  .description('Compares two configuration files and shows a difference.');
+  .description('Сравнивает два файла конфигурации и показывает разницу.');
 
 program
-  .argument('<filepath1>', 'Path to the first file')
-  .argument('<filepath2>', 'Path to the second file')
+  .argument('<filepath1>', './__fixtures__/filepath1.json')
+  .argument('<filepath2>', './__fixtures__/filepath2.json')
   .option(
     '-f, --format <type>',
-    'output format (stylish, plain, json)',
+    'формат вывода (stylish, plain, json)',
     'stylish'
   );
 
 program.action((filepath1, filepath2, options) => {
   const readFile = (filePath) => {
     try {
-      const absolutePath = path.resolve(filePath);
+      const fixturesDir = path.resolve(process.cwd(), '__fixtures__');
+      const absolutePath = path.resolve(fixturesDir, filePath);
       const extname = path.extname(absolutePath);
       const fileContent = fs.readFileSync(absolutePath, 'utf-8');
 
@@ -73,13 +74,13 @@ program.action((filepath1, filepath2, options) => {
 
   const displayDiff = (diff, format) => {
     if (format === 'stylish') {
-      return `{ \n${diff.join('\n')} \n}`;
+      return `\n${diff.join('\n')} \n`;
     } else if (format === 'json') {
       return JSON.stringify(diff, null, 2);
     } else if (format === 'plain') {
       return diff.join(' ');
     } else {
-      return 'Unknown format';
+      return 'Неизвестный формат';
     }
   };
 
@@ -94,14 +95,14 @@ program.action((filepath1, filepath2, options) => {
 
 program.on('--help', () => {
   console.log();
-  console.log('  Usage: gendiff [options] <filepath1> <filepath2>');
+  console.log('  Использование: gendiff [options] <filepath1> <filepath2>');
   console.log();
-  console.log('  Compares two configuration files and shows a difference.');
+  console.log('  Сравнивает два файла конфигурации и показывает разницу.');
   console.log();
-  console.log('  Options:');
-  console.log('    -V, --version        output the version number');
-  console.log('    -f, --format [type]  output format');
-  console.log('    -h, --help           display help for command');
+  console.log('  Параметры:');
+  console.log('    -V, --version        вывести номер версии');
+  console.log('    -f, --format [type]  формат вывода');
+  console.log('    -h, --help           вывести справку по команде');
   console.log();
 });
 
