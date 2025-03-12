@@ -6,14 +6,12 @@ import path from 'path';
 import yaml from 'js-yaml';
 import _ from 'lodash';
 
-// Экспортируем функцию diff в начало файла
 export function diff(file1, file2) {
-  const keys = _.union(Object.keys(file1), Object.keys(file2)); // Объединение ключей
+  const keys = _.union(Object.keys(file1), Object.keys(file2));
   const diff = [];
 
-  keys.sort(); // Сортировка ключей для корректного вывода
+  keys.sort();
 
-  // Сравнение значений по ключам
   keys.forEach((key) => {
     const value1 = file1[key];
     const value2 = file2[key];
@@ -35,7 +33,6 @@ export function diff(file1, file2) {
   return diff;
 }
 
-// Функция для отображения различий в различных форматах
 const displayDiff = (diff, format) => {
   if (format === 'stylish') {
     return `\n${diff.join('\n')} \n`;
@@ -48,7 +45,6 @@ const displayDiff = (diff, format) => {
   }
 };
 
-// Основной код программы
 const program = new Command();
 
 program
@@ -91,7 +87,7 @@ program.action((filepath1, filepath2, options) => {
   const file1 = readFile(filepath1);
   const file2 = readFile(filepath2);
 
-  const diffResult = diff(file1, file2); // Используем функцию diff
+  const diffResult = diff(file1, file2);
   const output = displayDiff(diffResult, options.format);
 
   console.log(output);

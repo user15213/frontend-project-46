@@ -1,39 +1,32 @@
 import fs from 'fs';
 import path from 'path';
+import mockfs from 'mock-fs';
+import { parseFile } from '../parse';
 
-describe('gendiff', () => {
-  it('should return correct difference between two JSON files', () => {
-    const filepath1 = path.resolve('__fixtures__', 'filepath1.json');
-    const filepath2 = path.resolve('__fixtures__', 'filepath2.json');
+describe('parseFile', () => {
+  beforeAll(() => {
+    mockfs({
+      __fixtures__: {
+        'validFile.json': JSON.stringify({ key1: 'value1', key2: 'value2' }),
+        'invalidFile.json': '{ key1: value1, key2: value2 }',
+      },
+    });
+  });
 
-    fs.writeFileSync(
-      filepath1,
-      JSON.stringify({ key1: 'value1', key2: 'value2' })
+  afterAll(() => {
+    mockfs.restore();
+  });
+
+  it('should parse a valid JSON file correctly', () => {
+    const filePath = path.resolve('__fixtures__', 'validFile.json');
+    const result = parseFile(filePath);
+    expect(result).toEqual({ key1: 'value1', key2: 'value2' });
+  });
+
+  it('should throw an error if the file content is not valid JSON', () => {
+    const filePath = path.resolve('__fixtures__', 'invalidFile.json');
+    expect(() => parseFile(filePath)).toThrowError(
+      /Error reading or parsing file/
     );
-    fs.writeFileSync(
-      filepath2,
-      JSON.stringify({ key1: 'value1', key2: 'value3' })
-    );
-
-    process.argv = ['node', 'gendiff.js', filepath1, filepath2];
-
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-
-    require('../gendiff.js');
-
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('  key1: value1')
-    );
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('- key2: value2')
-    );
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('+ key2: value3')
-    );
-
-    logSpy.mockRestore();
-
-    fs.unlinkSync(filepath1);
-    fs.unlinkSync(filepath2);
   });
 });

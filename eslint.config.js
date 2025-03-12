@@ -7,7 +7,7 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node,
-        jest: 'readonly', // Указываем, что Jest глобальные переменные доступны
+        jest: 'readonly',
       },
     },
     rules: {
@@ -22,7 +22,7 @@ export default [
     files: ['**/__tests__/**/*.js', 'gendiff.js'],
     languageOptions: {
       globals: {
-        ...globals.jest, // Добавляем глобальные переменные Jest
+        ...globals.jest,
       },
     },
     rules: {
@@ -43,9 +43,9 @@ export default [
     },
   },
   {
-    files: ['**/__tests__/**/*.js'], // Применяется только для тестовых файлов
+    files: ['**/__tests__/**/*.js'],
     plugins: {
-      jest: eslintPluginJest, // Подключаем плагин для Jest
+      jest: eslintPluginJest,
     },
     rules: {
       'no-console': 'off',

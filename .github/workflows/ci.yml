@@ -27,12 +27,12 @@ jobs:
       - name: Run tests
         run: npm test
         env:
-          CI: true # Добавлена переменная окружения
+          CI: true
 
       - name: Lint code
         run: npm run lint
         env:
-          CI: true # Добавлена переменная окружения
+          CI: true
 
   coverage:
     runs-on: ubuntu-latest
@@ -48,20 +48,18 @@ jobs:
       - name: Install dependencies
         run: npm install
         env:
-          CI: true # Добавлена переменная окружения
+          CI: true
 
       - name: Run tests with coverage
         run: npm run test:coverage
         env:
-          CI: true # Добавлена переменная окружения
+          CI: true
 
-      # Debug step to ensure coverage files are generated
       - name: Check coverage files
         run: |
           echo "Listing coverage directory:"
           ls -la coverage
 
-      # Debugging the content of lcov.info
       - name: Display lcov.info content
         run: |
           echo "Displaying content of lcov.info file:"
@@ -80,8 +78,7 @@ jobs:
           coverage_command: 'npm run test:coverage'
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          CI: true # Добавлена переменная окружения
+          CI: true
 
-      # Debugging the CodeClimate upload step
       - name: Check CodeClimate upload status
         run: echo "Uploading coverage to CodeClimate completed."
