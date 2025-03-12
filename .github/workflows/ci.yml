@@ -47,6 +47,18 @@ jobs:
       - name: Run tests with coverage
         run: npm run test:coverage
 
+      # Debug step to ensure coverage files are generated
+      - name: Check coverage files
+        run: |
+          echo "Listing coverage directory:"
+          ls -la coverage
+
+      # Debugging the content of lcov.info
+      - name: Display lcov.info content
+        run: |
+          echo "Displaying content of lcov.info file:"
+          cat coverage/lcov.info || echo "lcov.info not found"
+
   upload-coverage-report:
     runs-on: ubuntu-latest
     needs: coverage
@@ -60,3 +72,7 @@ jobs:
           coverage_command: 'npm run test:coverage'
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
+      # Debugging the CodeClimate upload step
+      - name: Check CodeClimate upload status
+        run: echo "Uploading coverage to CodeClimate completed."
