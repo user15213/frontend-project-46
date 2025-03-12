@@ -73,7 +73,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Upload coverage to CodeClimate
-        uses: codeclimate/test-reporter-action@v2
+        uses: codeclimate/test-reporter-action@v1
         with:
           coverage_command: 'npm run test:coverage'
         env:
