@@ -30,9 +30,15 @@
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
+  "plugins": {
+    "jest": "eslintPluginJest"
+  },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.9",
     "@eslint/js": "^9.22.0",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.25.0",
+    "eslint-plugin-jest": "^28.11.0",
     "globals": "^16.0.0",
     "jest": "^29.7.0"
   }

@@ -1,14 +1,14 @@
 install:
-  npm ci
+	npm ci
 
 publish:
-  npm publish --dry-run
+	npm publish --dry-run
 
 lint:
-  npx eslint .
+	npx eslint .
 
 lint-fix:
-  npx eslint . --fix
+	npx eslint . --fix
 
 diff:
-  gendiff -h
+	gendiff -h
