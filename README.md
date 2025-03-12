@@ -33,5 +33,7 @@ gendiff filepath1.json filepath2.json
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/user15213/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/user15213/frontend-project-46/actions)
 
+![Test Coverage](https://codeclimate.com/github/<user15213>/<frontend-project-46>/coverage/badge.svg)
+
 
 ````
