@@ -17,16 +17,21 @@ npm install
 
 # How to Use `gendiff`
 
-To compare two JSON files, follow these steps:
+To compare two files, follow these steps:
 
-### Step 1: Run `gendiff` command
+# Step 1: Run gendiff with two JSON files
 ```bash
 gendiff filepath1.json filepath2.json
-
  Asciinema recording #1
  https://asciinema.org/a/hvdP3owhHgM7qBrhCb8t8iM5c
 
-# The output shows differences between two JSON files.
+ # Step 2: Run gendiff with two YML files
+```bash
+gendiff filepath1.yml filepath2.yml
+Asciinema recording #2
+  https://asciinema.org/a/Wgyj79nH1YMSVMYBdR2FNZeRK
+
+# The output shows differences between two files.
 # Lines with '-' mean the value was removed or changed in the first file.
 # Lines with '+' mean the value was added or changed in the second file.
 
