@@ -35,5 +35,7 @@ gendiff filepath1.json filepath2.json
 
 ![Test Coverage](https://codeclimate.com/github/<user15213>/<frontend-project-46>/coverage/badge.svg)
 
+![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/user15213/frontend-project-46)
+
 
 ````
