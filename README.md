@@ -31,6 +31,12 @@ gendiff filepath1.yml filepath2.yml
 Asciinema recording #2
   https://asciinema.org/a/Wgyj79nH1YMSVMYBdR2FNZeRK
 
+# Step 3: Run gendiff with JSON files
+```bash
+gendiff filepath1.json filepath2.json
+ Asciinema recording #3
+  https://asciinema.org/a/XT68YXIBKYlnmMVfO05t3Qfff
+
 # The output shows differences between two files.
 # Lines with '-' mean the value was removed or changed in the first file.
 # Lines with '+' mean the value was added or changed in the second file.
