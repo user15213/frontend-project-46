@@ -1,10 +1,12 @@
 import globals from 'globals';
+
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import pluginJs from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 
+// mimic CommonJS variables -- not needed if using CommonJS
 const currentFilename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(currentFilename);
 const compat = new FlatCompat({
@@ -20,6 +22,8 @@ export default [
         ...globals.jest,
       },
       parserOptions: {
+        // Eslint doesn't supply ecmaVersion in `parser.js` `context.parserOptions`
+        // This is required to avoid ecmaVersion < 2015 error or 'import' / 'export' error
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
@@ -27,24 +31,27 @@ export default [
     plugins: { import: importPlugin },
     rules: {
       ...importPlugin.configs.recommended.rules,
-      'import/extensions': [
-        'error',
-        'always',
-        {
-          js: 'never', // Ожидается, что не будет использоваться расширение .js
-        },
-      ],
+    },
+  },
+  ...compat.extends('airbnb-base'),
+  {
+    rules: {
       'no-underscore-dangle': [
         'error',
         {
           allow: ['__filename', '__dirname'],
         },
       ],
-      'no-console': 'off', // Разрешаем использование console.log
+      'import/extensions': [
+        'error',
+        {
+          js: 'always',
+        },
+      ],
+      'import/no-named-as-default': 'off',
+      'import/no-named-as-default-member': 'off',
+      'no-console': 'off',
       'import/no-extraneous-dependencies': 'off',
-      'comma-dangle': ['error', 'always-multiline'],
-      'implicit-arrow-linebreak': ['error', 'beside'],
     },
   },
-  ...compat.extends('airbnb-base'),
 ];
