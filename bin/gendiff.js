@@ -23,13 +23,13 @@ program
       __dirname,
       '..',
       '__fixtures__',
-      filepath1
+      filepath1,
     );
     const absoluteFilepath2 = path.resolve(
       __dirname,
       '..',
       '__fixtures__',
-      filepath2
+      filepath2,
     );
 
     // Получаем разницу между файлами
