@@ -32,27 +32,31 @@ export default [
     rules: {
       ...importPlugin.configs.recommended.rules,
 
-      // Добавлены новые правила
-      'no-underscore-dangle': [
-        'error',
-        {
-          allow: ['__filename', '__dirname'], // Разрешаем использование этих переменных
-        },
-      ],
-
+      // Убираем расширения из импорта
       'import/extensions': [
         'error',
         {
-          js: 'never', // Убираем расширения .js из импорта
+          js: 'never', // Убираем расширения .js
         },
       ],
 
-      'import/no-named-as-default': 'off', // Отключаем правило
-      'import/no-named-as-default-member': 'off', // Отключаем правило
+      // Разрешаем использование __filename и __dirname
+      'no-underscore-dangle': [
+        'error',
+        {
+          allow: ['__filename', '__dirname'],
+        },
+      ],
 
-      'no-console': 'off', // Отключаем правило для использования console.log
+      // Отключаем правило для console.log
+      'no-console': 'off',
 
-      'import/no-extraneous-dependencies': 'off', // Отключаем проверку на зависимости
+      // Отключаем проверки на зависимости в devDependencies
+      'import/no-extraneous-dependencies': 'off',
+
+      // Добавлены правила для трейлинг-комма и стрелочных функций
+      'comma-dangle': ['error', 'always-multiline'],
+      'implicit-arrow-linebreak': ['error', 'beside'],
     },
   },
   ...compat.extends('airbnb-base'),
