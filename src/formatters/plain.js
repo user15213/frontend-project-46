@@ -4,11 +4,7 @@ const stringify = (data) => {
   if (_.isObject(data)) {
     return '[complex value]';
   }
-  if (typeof data === 'string') {
-    return `'${data}'`;
-  }
-
-  return data;
+  return typeof data === 'string' ? `'${data}'` : String(data);
 };
 
 const plain = (data) => {
@@ -42,7 +38,7 @@ const plain = (data) => {
           );
       }
     });
-    return strings.filter((item) => item !== undefined).join('\n');
+    return strings.filter((item) => !!item).join('\n');
   };
   return iter(data, '');
 };
