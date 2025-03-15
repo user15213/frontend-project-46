@@ -48,10 +48,9 @@ export default [
       'import/no-named-as-default-member': 'off',
       'no-console': 'off',
       'import/no-extraneous-dependencies': 'off',
-      // Убираем снос строки в стрелочных функциях
-      'implicit-arrow-linebreak': 'off',
-      // Убираем требуемые запятые в конце
-      'comma-dangle': 'off',
+      'implicit-arrow-linebreak': ['error', 'beside'],
+      'arrow-spacing': ['error', { before: true, after: true }],
+      'comma-dangle': ['error', 'always-multiline'],
     },
   },
 ];
