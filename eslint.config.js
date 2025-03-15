@@ -50,7 +50,6 @@ export default [
       'import/no-extraneous-dependencies': 'off',
       'implicit-arrow-linebreak': ['error', 'beside'],
       'arrow-spacing': ['error', { before: true, after: true }],
-      'comma-dangle': ['error', 'always-multiline'],
     },
   },
 ];
