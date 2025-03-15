@@ -53,7 +53,6 @@ export default [
       'no-console': 'off',
       'import/no-extraneous-dependencies': 'off',
       'implicit-arrow-linebreak': 'off',
-      'comma-dangle': ['error', 'never'],
     },
   },
 ];
