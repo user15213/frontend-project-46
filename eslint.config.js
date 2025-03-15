@@ -31,28 +31,29 @@ export default [
     plugins: { import: importPlugin },
     rules: {
       ...importPlugin.configs.recommended.rules,
+
+      // Добавлены новые правила
+      'no-underscore-dangle': [
+        'error',
+        {
+          allow: ['__filename', '__dirname'], // Разрешаем использование этих переменных
+        },
+      ],
+
+      'import/extensions': [
+        'error',
+        {
+          js: 'never', // Убираем расширения .js из импорта
+        },
+      ],
+
+      'import/no-named-as-default': 'off', // Отключаем правило
+      'import/no-named-as-default-member': 'off', // Отключаем правило
+
+      'no-console': 'off', // Отключаем правило для использования console.log
+
+      'import/no-extraneous-dependencies': 'off', // Отключаем проверку на зависимости
     },
   },
   ...compat.extends('airbnb-base'),
 ];
-('rules');
-('arrow-spacing');
-'off', 'no-underscore-dangle';
-[
-  'error',
-  {
-    allow: ['__filename', '__dirname'],
-  },
-],
-  'import/extensions';
-[
-  'error',
-  {
-    js: 'always',
-  },
-],
-  'import/no-named-as-default';
-'off', 'import/no-named-as-default-member';
-'off', 'no-console';
-'off', 'import/no-extraneous-dependencies';
-('off');
