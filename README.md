@@ -4,7 +4,7 @@
 
 This project uses the following dependencies:
 
-- **commander**: CLI utility for parsing arguments. Version: `^13.1.0`
+- **commander**: CLI utility for parsing arguments. Version: "^8.3.0"
 - **js-yaml**: YAML parser and serializer. Version: `^4.1.0`
 - **lodash**: Utility library for data manipulation (used for sorting keys). Version: `^4.17.21`
 
@@ -38,9 +38,12 @@ gendiff filepath1.yml filepath2.yml
  Asciinema recording #3
   https://asciinema.org/a/jbRf2w64tPBbUBsRQuQOuPf93
 
-# The output shows differences between two files.
-# Lines with '-' mean the value was removed or changed in the first file.
-# Lines with '+' mean the value was added or changed in the second file.
+# Step 4: Run gendiff --format plain
+```bash
+gendiff --format plain filepath1.json filepath2.json
+Asciinema recording #4
+ https://asciinema.org/a/6nZwCt8OrYRMDrhot8gTpOxHf
+
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/user15213/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/user15213/frontend-project-46/actions)

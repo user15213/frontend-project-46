@@ -1,57 +1,57 @@
 import globals from 'globals';
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { FlatCompat } from '@eslint/eslintrc';
 import pluginJs from '@eslint/js';
-import eslintPluginJest from 'eslint-plugin-jest';
+import importPlugin from 'eslint-plugin-import';
+
+// mimic CommonJS variables -- not needed if using CommonJS
+const currentFilename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(currentFilename);
+const compat = new FlatCompat({
+  baseDirectory: dirname,
+  recommendedConfig: pluginJs.configs.recommended,
+});
 
 export default [
   {
     languageOptions: {
       globals: {
         ...globals.node,
-        jest: 'readonly',
-      },
-    },
-    rules: {
-      'no-console': 'warn',
-      semi: ['error', 'always'],
-      quotes: ['error', 'single'],
-      indent: ['error', 2],
-    },
-  },
-  pluginJs.configs.recommended,
-  {
-    files: ['**/__tests__/**/*.js', 'gendiff.js'],
-    languageOptions: {
-      globals: {
         ...globals.jest,
       },
+      parserOptions: {
+        // Eslint doesn't supply ecmaVersion in `parser.js` `context.parserOptions`
+        // This is required to avoid ecmaVersion < 2015 error or 'import' / 'export' error
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
     },
+    plugins: { import: importPlugin },
     rules: {
-      'no-console': 'off',
-      semi: ['error', 'always'],
-      quotes: ['error', 'single'],
-      indent: ['error', 2],
+      ...importPlugin.configs.recommended.rules,
     },
   },
+  ...compat.extends('airbnb-base'),
   {
-    files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'],
     rules: {
-      'no-unused-vars': 'warn',
-      'no-console': 'warn',
-      semi: ['error', 'always'],
-      quotes: ['error', 'single'],
-      indent: ['error', 2],
-    },
-  },
-  {
-    files: ['**/__tests__/**/*.js'],
-    plugins: {
-      jest: eslintPluginJest,
-    },
-    rules: {
+      'no-underscore-dangle': [
+        'error',
+        {
+          allow: ['__filename', '__dirname'],
+        },
+      ],
+      'import/extensions': [
+        'error',
+        {
+          js: 'always',
+        },
+      ],
+      'import/no-named-as-default': 'off',
+      'import/no-named-as-default-member': 'off',
       'no-console': 'off',
-      'jest/no-disabled-tests': 'warn',
-      'jest/no-identical-title': 'error',
-      'jest/valid-expect': 'error',
+      'import/no-extraneous-dependencies': 'off',
     },
   },
 ];
