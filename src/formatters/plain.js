@@ -15,18 +15,20 @@ const plain = (data) => {
   const iter = (obj, path) => {
     const values = Object.values(obj);
     const strings = values.flatMap((node) => {
-      const { key, oldValue, newValue, value, type, children } = node;
+      const {
+        key, oldValue, newValue, value, type, children,
+      } = node;
       const newPath = path === '' ? `${key}` : `${path}.${key}`;
       switch (type) {
         case 'added':
           return `Property '${newPath}' was added with value: ${stringify(
-            value
+            value,
           )}`;
         case 'deleted':
           return `Property '${newPath}' was removed`;
         case 'changed':
           return `Property '${newPath}' was updated. From ${stringify(
-            oldValue
+            oldValue,
           )} to ${stringify(newValue)}`;
         case 'hasChild':
           return iter(children, newPath);
@@ -35,8 +37,8 @@ const plain = (data) => {
         default:
           throw new Error(
             `Unexpected type encountered: ${type}. Node details: ${JSON.stringify(
-              node
-            )}`
+              node,
+            )}`,
           );
       }
     });
