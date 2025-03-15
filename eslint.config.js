@@ -27,19 +27,14 @@ export default [
     plugins: { import: importPlugin },
     rules: {
       ...importPlugin.configs.recommended.rules,
-      'import/extensions': [
-        'error',
-        {
-          js: 'never',
-        },
-      ],
+      'import/extensions': 'off', // отключаем проверку расширений файлов
       'no-underscore-dangle': [
         'error',
         {
           allow: ['__filename', '__dirname'],
         },
       ],
-      'no-console': 'off',
+      'no-console': 'off', // разрешаем использование console.log
       'import/no-extraneous-dependencies': 'off',
       'comma-dangle': ['error', 'always-multiline'],
       'implicit-arrow-linebreak': ['error', 'beside'],
