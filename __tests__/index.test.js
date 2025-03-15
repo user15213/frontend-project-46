@@ -29,7 +29,7 @@ describe.each([
 
     test(`should generate ${format} format`, () => {
       expect(normalizeWhiteSpace(genDiff(file1, file2, format))).toMatch(
-        normalizeWhiteSpace(readFile(expectedFile)),
+        normalizeWhiteSpace(readFile(expectedFile))
       );
     });
   });

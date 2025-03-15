@@ -1,5 +1,4 @@
 import globals from 'globals';
-
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
@@ -53,6 +52,7 @@ export default [
       'no-console': 'off',
       'import/no-extraneous-dependencies': 'off',
       'implicit-arrow-linebreak': 'off',
+      'comma-dangle': ['off'],
     },
   },
 ];
