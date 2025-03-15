@@ -6,8 +6,10 @@ import genDiff from '../src/index.js';
 const currentFilename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(currentFilename);
 
-const getFixturePath = (filename) => path.join(dirname, '..', '__fixtures__', filename);
-const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
+const getFixturePath = (filename) =>
+  path.join(dirname, '..', '__fixtures__', filename);
+const readFile = (filename) =>
+  fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 const normalizeWhiteSpace = (str) => str.replace(/\s+/g, ' ').trim();
 
@@ -20,14 +22,14 @@ describe.each([
   const file1 = getFixturePath(file1Name);
   const file2 = getFixturePath(file2Name);
 
-  formats.forEach((format) => {
+  describe.each(formats)('with format "%s"', (format) => {
     const expectedFile = `result${
       format.charAt(0).toUpperCase() + format.slice(1)
     }.txt`;
 
     test(`should generate ${format} format`, () => {
       expect(normalizeWhiteSpace(genDiff(file1, file2, format))).toMatch(
-        normalizeWhiteSpace(readFile(expectedFile)),
+        normalizeWhiteSpace(readFile(expectedFile))
       );
     });
   });

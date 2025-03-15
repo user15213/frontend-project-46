@@ -15,6 +15,7 @@ Run the following to install dependencies:
 npm install
 
 How to Use gendiff
+
 Step 1: Run gendiff with two JSON files
 
 gendiff filepath1.json filepath2.json
