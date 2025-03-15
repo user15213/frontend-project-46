@@ -5,7 +5,6 @@ import { FlatCompat } from '@eslint/eslintrc';
 import pluginJs from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 
-// mimic CommonJS variables -- not needed if using CommonJS
 const currentFilename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(currentFilename);
 const compat = new FlatCompat({
@@ -21,8 +20,6 @@ export default [
         ...globals.jest,
       },
       parserOptions: {
-        // Eslint doesn't supply ecmaVersion in `parser.js` `context.parserOptions`
-        // This is required to avoid ecmaVersion < 2015 error or 'import' / 'export' error
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
@@ -51,8 +48,10 @@ export default [
       'import/no-named-as-default-member': 'off',
       'no-console': 'off',
       'import/no-extraneous-dependencies': 'off',
+      // Убираем снос строки в стрелочных функциях
       'implicit-arrow-linebreak': 'off',
-      'comma-dangle': ['off'],
+      // Убираем требуемые запятые в конце
+      'comma-dangle': 'off',
     },
   },
 ];
