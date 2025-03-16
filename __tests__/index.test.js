@@ -29,9 +29,11 @@ describe.each([
       const expected = readFile(expectedFile).trim();
 
       if (format === 'json') {
-        expect(JSON.parse(result)).toEqual(JSON.parse(expected));
+        const resultJson = JSON.parse(result);
+        const expectedJson = JSON.parse(expected);
+        expect(resultJson).toEqual(expectedJson);
       } else {
-        expect(result.trim()).toBe(expected.trim());
+        expect(result).toBe(expected);
       }
     },
   );
