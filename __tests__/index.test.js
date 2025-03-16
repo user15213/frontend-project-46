@@ -28,13 +28,10 @@ describe.each([
       const result = genDiff(file1, file2, format).trim();
       const expected = readFile(expectedFile).trim();
 
-      if (format === 'json') {
-        const resultJson = JSON.parse(result);
-        const expectedJson = JSON.parse(expected);
-        expect(resultJson).toEqual(expectedJson);
-      } else {
-        expect(result).toBe(expected);
-      }
+      const resultToCompare = format === 'json' ? JSON.stringify(JSON.parse(result)) : result;
+      const expectedToCompare = format === 'json' ? JSON.stringify(JSON.parse(expected)) : expected;
+
+      expect(resultToCompare).toBe(expectedToCompare);
     },
   );
 });
