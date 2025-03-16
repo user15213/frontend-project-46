@@ -1,61 +1,75 @@
-# Project Name
+# **Вычислитель отличий**
 
-## Dependencies
+## **Dependencies**
 
-This project uses the following dependencies:
+Этот проект использует следующие зависимости:
 
-- **commander**: CLI utility for parsing arguments. Version: "^8.3.0"
-- **js-yaml**: YAML parser and serializer. Version: `^4.1.0`
-- **lodash**: Utility library for data manipulation (used for sorting keys). Version: `^4.17.21`
+- **commander** – CLI-утилита для парсинга аргументов. Версия: `^8.3.0`
+- **js-yaml** – YAML-парсер и сериализатор. Версия: `^4.1.0`
+- **lodash** – Утилита для работы с данными (используется для сортировки ключей). Версия: `^4.17.21`
 
-## Installation
+## **Installation**
 
-Run the following to install dependencies:
+Установите зависимости, выполнив команду:
 
+```sh
 npm install
+```
 
-How to Use gendiff
+## **How to Use gendiff**
 
-Step 1: Run gendiff with two JSON files
+### **Шаг 1: Сравнение двух JSON-файлов**
 
+```sh
 gendiff filepath1.json filepath2.json
+gendiff <укажите директорию>/filepath1.json <укажите директорию>/filepath2.json
+```
 
-Asciinema recording #1:
-[Watch here](https://asciinema.org/a/hvdP3owhHgM7qBrhCb8t8iM5c)
+🎥 [Демонстрация](https://asciinema.org/a/hvdP3owhHgM7qBrhCb8t8iM5c)
 
-Step 2: Run gendiff with two YML files
+### **Шаг 2: Сравнение двух YAML-файлов**
+
+```sh
+gendiff filepath1.yml filepath2.yml
+gendiff <укажите директорию>/filepath1.yml <укажите директорию>/filepath2.yml
+```
+
+🎥 [Демонстрация](https://asciinema.org/a/Wgyj79nH1YMSVMYBdR2FNZeRK)
+
+### **Шаг 3: Сравнение JSON и YAML-файлов**
+
+```sh
+gendiff filepath1.json filepath2.json
+gendiff <укажите директорию>/filepath1.json <укажите директорию>/filepath2.json
 
 gendiff filepath1.yml filepath2.yml
+gendiff <укажите директорию>/filepath1.yml <укажите директорию>/filepath2.yml
+```
 
-Asciinema recording #2:
-[Watch here](https://asciinema.org/a/Wgyj79nH1YMSVMYBdR2FNZeRK)
+🎥 [Демонстрация](https://asciinema.org/a/jbRf2w64tPBbUBsRQuQOuPf93)
 
-Step 3: Run gendiff with JSON & YML files
+### **Шаг 4: Вывод в формате plain**
 
-gendiff filepath1.json filepath2.json
-gendiff filepath1.yml filepath2.yml
-
-Asciinema recording #3:
-[Watch here](https://asciinema.org/a/jbRf2w64tPBbUBsRQuQOuPf93)
-
-Step 4: Run gendiff --format plain
-
+```sh
 gendiff --format plain filepath1.json filepath2.json
+gendiff --format plain <укажите директорию>/filepath1.json <укажите директорию>/filepath2.json
+```
 
-Asciinema recording #4:
-[Watch here](https://asciinema.org/a/6nZwCt8OrYRMDrhot8gTpOxHf)
+🎥 [Демонстрация](https://asciinema.org/a/6nZwCt8OrYRMDrhot8gTpOxHf)
 
-Step 5: Run gendiff --format json
+### **Шаг 5: Вывод в формате JSON**
 
+```sh
 gendiff --format json filepath1.json filepath2.json
+gendiff --format json <укажите директорию>/filepath1.json <укажите директорию>/filepath2.json
+```
 
-Asciinema recording #5:
-[Watch here](https://asciinema.org/a/xHjmPzxJLPaHBXt7sq99GzyOZ)
+🎥 [Демонстрация](https://asciinema.org/a/xHjmPzxJLPaHBXt7sq99GzyOZ)
 
-### Hexlet tests and linter status:
+## **Hexlet Tests and Linter Status**
 
 [![Actions Status](https://github.com/user15213/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/user15213/frontend-project-46/actions)
 
-<a href="https://codeclimate.com/github/user15213/frontend-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/0ba337b1734fd420ec7d/test_coverage" /></a>
+[![Test Coverage](https://api.codeclimate.com/v1/badges/0ba337b1734fd420ec7d/test_coverage)](https://codeclimate.com/github/user15213/frontend-project-46/test_coverage)
 
 ![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/user15213/frontend-project-46)
