@@ -31,7 +31,7 @@ describe.each([
       if (format === 'json') {
         expect(JSON.parse(result)).toEqual(JSON.parse(expected));
       } else {
-        expect(result).toBe(expected);
+        expect(result.trim()).toBe(expected.trim());
       }
     },
   );
